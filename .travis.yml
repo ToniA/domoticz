@@ -49,7 +49,7 @@ before_install:
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install boost || true; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install libusb; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install libusb-compat; fi
-  - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install zlib; fi
+  - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install zlib || true; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install openssl; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew link openssl --force; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then export LDFLAGS=-L/usr/local/opt/openssl/lib; fi
