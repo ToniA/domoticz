@@ -46,7 +46,7 @@ before_install:
   - if [ ${TRAVIS_OS_NAME} == "linux" ]; then git clone https://github.com/OpenZWave/open-zwave.git; fi
   - if [ ${TRAVIS_OS_NAME} == "linux" ]; then ln -s open-zwave open-zwave-read-only; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install cmake; fi
-  - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install boost --with-python; fi
+  - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install boost --with-python || true; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install boost-python; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install libusb; fi
   - if [ ${TRAVIS_OS_NAME} == "osx" ];   then brew install libusb-compat; fi
