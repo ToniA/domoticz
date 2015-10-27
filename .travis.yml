@@ -77,9 +77,8 @@ matrix:
     install:
       - docker pull tonia/buildroot-rpi-crosscompiler
     script:
-#      - docker run tonia/buildroot-rpi-crosscompiler -v ${TRAVIS_BUILD_DIR}:/build /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-uclibcgnueabi"
-#      - docker run tonia/buildroot-rpi-crosscompiler -v ${TRAVIS_BUILD_DIR}:/build /bin/sh -c "cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LIBRARY_PATH=open-zwave-read-only"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release"
+      - docker run tonia/buildroot-rpi-crosscompiler -v ${TRAVIS_BUILD_DIR}:/build /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-uclibcgnueabi"
+      - docker run tonia/buildroot-rpi-crosscompiler -v ${TRAVIS_BUILD_DIR}:/build /bin/sh -c "cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LIBRARY_PATH=open-zwave-read-only"
       - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; make"
   # Apple OSX
   - os: osx
