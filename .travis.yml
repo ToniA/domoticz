@@ -78,8 +78,7 @@ matrix:
       - docker pull tonia/buildroot-rpi-crosscompiler
     script:
       - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-gnueabi-"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/lib/libopenzwave.a"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LIBRARY_PATH=/build/open-zwave-read-only -DOPENSSL_INCLUDE_DIR=/tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/include/openssl -DUSE_STATIC_BOOST=NO"
+      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/lib/libopenzwave.a; cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_INCLUDE_DIR=/tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/include/openssl -DUSE_STATIC_BOOST=NO"
       - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; make"
   # Apple OSX
   - os: osx
