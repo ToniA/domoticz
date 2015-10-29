@@ -26,7 +26,7 @@ before_install:
   # Domoticz needs the full history to be able to calculate the version string
   - git fetch --unshallow
   # OpenZWave
-  - git clone https://github.com/OpenZWave/open-zwave.git
+  - git clone --depth 1 https://github.com/OpenZWave/open-zwave.git
   - ln -s open-zwave open-zwave-read-only
 
 
@@ -75,11 +75,11 @@ matrix:
     services:
       - docker
     install:
-      - docker pull tonia/buildroot-rpi-crosscompiler1
+      - docker pull tonia/buildroot-rpi-crosscompiler
     script:
-#      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler1 /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-gnueabi-"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler1 /bin/sh -c "cd /build; cmake -DUSE_STATIC_BOOST=NO -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LIBRARY_PATH=open-zwave-read-only"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler1 /bin/sh -c "cd /build; make"
+      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-gnueabi-"
+      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LIBRARY_PATH=open-zwave-read-only"
+      - docker run -v ${TRAVIS_BUILD_DIR}:/build tonia/buildroot-rpi-crosscompiler /bin/sh -c "cd /build; make"
   # Apple OSX
   - os: osx
     compiler:
