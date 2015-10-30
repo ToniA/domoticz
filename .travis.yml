@@ -79,7 +79,7 @@ matrix:
     install:
       - docker pull ${DOCKER_IMAGE}
     script:
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-gnueabi-"
+      - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-gnueabihf-"
       - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/lib/libopenzwave.a; cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_INCLUDE_DIR=/tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/include/openssl"
       - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-gnueabi/sysroot/usr/lib/libopenzwave.a; cd /build; make"
   # Apple OSX
