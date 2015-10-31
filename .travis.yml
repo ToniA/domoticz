@@ -74,6 +74,11 @@ matrix:
       - "TARGET_ARCHITECTURE=armv7"
       - "DOCKER_IMAGE=tonia/buildroot-rpi-crosscompiler:kernel_3.18"
       - "TOOLCHAIN_ARCHITECTURE=gnueabihf"
+    addons:
+      apt:
+        packages:
+          - git
+          - libdigest-sha-perl
     sudo: required
     services:
       - docker
