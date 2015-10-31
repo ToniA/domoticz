@@ -73,7 +73,7 @@ matrix:
     env:
       - "TARGET_ARCHITECTURE=armv7"
       - "DOCKER_IMAGE=tonia/buildroot-rpi-crosscompiler:kernel_3.18"
-      - "TOOLCHAIN_ARCHITECTURE=gnueabi"
+      - "TOOLCHAIN_ARCHITECTURE=gnueabihf"
     sudo: required
     services:
       - docker
