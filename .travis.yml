@@ -43,7 +43,6 @@ matrix:
     env:
       - "TARGET_ARCHITECTURE=x86_64"
       - "SHACMD=sha256sum"
-      - "SHAARGS="
     addons:
       apt:
         sources:
@@ -77,7 +76,6 @@ matrix:
       - "DOCKER_IMAGE=tonia/buildroot-rpi-crosscompiler:kernel_3.18"
       - "TOOLCHAIN_ARCHITECTURE=gnueabihf"
       - "SHACMD=sha256sum"
-      - "SHAARGS="
     addons:
       apt:
         packages:
@@ -102,7 +100,8 @@ matrix:
     env: 
       - "TARGET_ARCHITECTURE=x86_64"
       - "SHACMD=shasum"
-      - "SHAARGS=-a 256"
+      - "SHAARGS1=-a"
+      - "SHAARGS2=256"
     install:
       - brew install cmake
       - brew install boost|| true
@@ -123,7 +122,7 @@ matrix:
 # - Upload to the Domoticz file server
 after_success:
   - tar czf domoticz_${TRAVIS_OS_NAME}_${TARGET_ARCHITECTURE}_latest.tgz domoticz History.txt License.txt domoticz.sh server_cert.pem updatebeta updaterelease www/ scripts/ Config/
-  - ${SHACMD} ${SHAARGS} domoticz_${TRAVIS_OS_NAME}_${TARGET_ARCHITECTURE}_latest.tgz
+  - ${SHACMD} ${SHAARGS1} ${SHAARGS2} domoticz_${TRAVIS_OS_NAME}_${TARGET_ARCHITECTURE}_latest.tgz
   - cp appversion.h.txt version_${TRAVIS_OS_NAME}_${TARGET_ARCHITECTURE}.h
   - cp History.txt history_${TRAVIS_OS_NAME}_${TARGET_ARCHITECTURE}.txt
 deploy:
