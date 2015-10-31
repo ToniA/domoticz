@@ -72,17 +72,20 @@ matrix:
       - gcc
     env:
       - "TARGET_ARCHITECTURE=armv7"
-      - "DOCKER_IMAGE=tonia/buildroot-rpi-crosscompiler:dev"
-      - "TOOLCHAIN_ARCHITECTURE=gnueabihf"
+      - "DOCKER_IMAGE=tonia/buildroot-rpi-crosscompiler:kernel_3.18"
+      - "TOOLCHAIN_ARCHITECTURE=gnueabi"
     sudo: required
     services:
       - docker
     install:
       - docker pull ${DOCKER_IMAGE}
-    script:
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}-"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}/sysroot/usr/lib/libopenzwave.a; cd /build; cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_INCLUDE_DIR=/tmp/buildroot/output/host/usr/arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}/sysroot/usr/include/openssl"
-      - docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}/sysroot/usr/lib/libopenzwave.a; cd /build; make"
+    script: >
+      docker run -v ${TRAVIS_BUILD_DIR}:/build ${DOCKER_IMAGE} /bin/sh -c "
+        cd /build/open-zwave-read-only; make -e CROSS_COMPILE=arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}- &&
+        ln -s /build/open-zwave-read-only/libopenzwave.a /tmp/buildroot/output/host/usr/arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}/sysroot/usr/lib/libopenzwave.a &&
+        cd /build &&
+        cmake -DCMAKE_TOOLCHAIN_FILE=/tmp/buildroot/output/host/usr/share/buildroot/toolchainfile.cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_INCLUDE_DIR=/tmp/buildroot/output/host/usr/arm-buildroot-linux-${TOOLCHAIN_ARCHITECTURE}/sysroot/usr/include/openssl &&
+        make"
   # Apple OSX
   - os: osx
     compiler:
